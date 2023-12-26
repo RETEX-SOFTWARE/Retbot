@@ -1,0 +1,140 @@
+
+      border: none; /* Kenarlığı kaldır */
+      background-color: #333;
+      color: #fff;
+      border-radius: 10px; /* Kenarları yuvarlat */
+      position: fixed;
+      bottom: 55px;
+      left: 0;
+    }
+
+    #bottom-buttons {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px;
+      background-color: #444;
+      border-top: 0px solid #ccc;
+      border-radius: 0px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 10px; /* Kenarları yuvarlat */
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <h1>Retbot - Yapay Zeka Chat</h1>
+
+    <div id="chat-box">
+      <p id="retbot-greeting">Retbot: Merhaba, bir şey sormak isterseniz yazabilirsiniz.</p>
+    </div>
+  
+    <!-- Mesaj gönderme kısmı -->
+    <input type="text" id="user-input">
+    <div id="bottom-buttons">
+      <button onclick="sendMessage()" id="send-button">Soru Sor</button>
+      <button onclick="tellJoke()" id="joke-button">Fun</button>
+    </div>
+  </div>
+  
+  <script>
+    var jokes = [
+     "Bilgisayarım çok eski, onunla çalışmak eskiden Windows kullanmak gibi - her şey donuyor!",
+      "Neden JavaScript geliştiricileri doğa yürüyüşünden hoşlanmaz? Çünkü hep callback'teler!",
+      "Bir programcı neden öğle yemeğini bilgisayarında yer? Çünkü klavyesi 'hashbrown' yapmış!",
+      "Bilgisayarlar asla unutkan değildir, sadece bellekleri dolu olabilir.",
+      "Bir bilgisayar neden hiçbir zaman hasta olmaz? Çünkü onlarda virüs programı var!",
+      "Bilgisayarlar evcil hayvan gibi, her şeyi dinler ama asla anlamaz.",
+      "Bir bilgisayarın favori filmi nedir? Diskler Bize Ne Anlatıyor?",
+      "Bir RESTaurant RESTful hizmet sunuyor mu?",
+      "Bir RESToranın menüsüne baktım, tüm yemekler 'GET'le mi servis ediliyor?",
+      "Restoranın aşçısı, her yemeği hazırlarken mükemmel bir API ile bağlantı kurar. Sonuç mu? Mükemmel bir RESToran hizmeti!",
+      "RESToranın en popüler yemeği nedir? Tabii ki, 'DELETE-miş et'!",
+      "Restoranın en hızlı yemeği hangisi? Kesinlikle 'Fast-Food API'!",
+      "Bir restoranda yazılım mühendisi olmak güzel olabilir; menüde her zaman 'yemek.get()' çağrıları yapıyorlar!",
+      "RESToranın müşteri servisi gerçekten RESTful mi? Yoksa bazen POST etmeye çalışıyorlar mı?",
+      "Restoranın şefi, yemeklerin hazırlanması sırasında hiç 'timeout' hatası alıyor mu, yoksa her şey hızlı mı gerçekleşiyor?",
+      "Restoranın veri tabanı, en sevdiğiniz yemeklerinizi 'save' etmeden önce her zaman 'commit' ediyor mu?",
+      "Restoranın özel gün menüsünde SQL enjeksiyonu yapılmadığından emin olmak için 'prepared statements' kullanılıyor mu?",
+      "Neden JavaScript geliştiricileri sinirlidir? Çünkü her şey undefined!",
+      "Neden bir bilgisayar asla kahve yapamaz? Çünkü sürekli filtreleri.",
+      "Neden bilgisayarlar asla yalan söylemez? Çünkü bits and bytes!",
+      "Neden veri bilimcileri insanlarla anlaşmakta zorlanır? Çünkü herkesle ilişkilerini normalize etmek istiyorlar.",
+      "En sevdiğim çizgi film hangisidir? Vektör Smurf!",
+      "Bilgisayar mühendisliği ile ilgili bir espri duymak istiyor musun? Ah, o benim alanım değil, 'null'.",
+      "Bilgisayarlar asla spor yapmaz çünkü RAM'leri yeterince iyi çalışır!",
+      "Bir bilgisayarın favori yemeği nedir? Micro-chips!",
+      "Bir bilgisayar diğer bir bilgisayara ne der? Byte ettim!",
+      "Bir bilgisayarın en sevdiği film hangisi? 1'den 0'a Hızlı ve Öfkeli!",
+      "Bilgisayarlar partilere katılmaz çünkü sürekli 'anti-social'ler.",
+      "Bir bilgisayarın favori müziği nedir? İşte 'algoritma'nın ritmi!",
+      "Bir bilgisayarın en sevdiği hikaye türü nedir? Sürükleyici rom-anlattım.",
+      "Bilgisayarlar neden komik değildir? Çünkü her zaman 'debug' halindeler!",
+      "Bir bilgisayarın en sevdiği mevsim hangisi? Tabii ki, Yazılım!",
+      "Bilgisayarlar denizde nasıl hayatta kalır? Veri 'flote' ederek!",
+     ];
+    var greetings = [
+      "Merhaba!",
+      "Selam!",
+      "Hey!",
+      "Nasılsınız?"
+      // Diğer selamlama ifadeleri burada
+    ];
+
+    var newGreetings = [
+      "Naber?",
+      "Hava nasıl?",
+      "Günaydın!",
+      // Diğer yeni selamlama ifadeleri burada
+    ];
+
+    function generateRandomGreeting() {
+      var allGreetings = greetings.concat(newGreetings);
+      return allGreetings[Math.floor(Math.random() * allGreetings.length)];
+    }
+
+    function generateRandomJoke() {
+      return jokes[Math.floor(Math.random() * jokes.length)];
+    }
+
+    function tellJoke() {
+      var joke = generateRandomJoke();
+      document.getElementById("chat-box").innerHTML += "<p>Retbot: " + joke + "</p>";
+    }
+
+    function processUserInput(input) {
+      switch(input) {
+        case 'merhaba':
+          return generateRandomGreeting();
+        case 'naber':
+          return 'İyiyim, teşekkür ederim. Seninle nasıl yardımcı olabilirim?';
+        // Yeni giriş ifadelerini buraya ekleyin
+        default:
+          return 'Üzgünüm, bu konuda yardımcı olamıyorum.';
+      }
+    }
+
+    function sendMessage() {
+      var userInput = document.getElementById("user-input").value.trim().toLowerCase();
+      var botResponse = processUserInput(userInput);
+
+      document.getElementById("chat-box").innerHTML += "<p>Siz: " + userInput + "</p>";
+      document.getElementById("user-input").value = "";
+
+      document.getElementById("chat-box").innerHTML += "<p>Retbot: " + botResponse + "</p>";
+    }
+  </script>
+</body>
+</html>
