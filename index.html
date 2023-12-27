@@ -86,6 +86,7 @@
   </div>
   
   <script>
+
     var jokes = [
      "Bilgisayarım çok eski, onunla çalışmak eskiden Windows kullanmak gibi - her şey donuyor!",
       "Neden JavaScript geliştiricileri doğa yürüyüşünden hoşlanmaz? Çünkü hep callback'teler!",
@@ -124,21 +125,26 @@
     var greetings = [
       "Merhaba!",
       "Selam!",
-      "Hey!",
+      "Merhaba! Sana nasıl yardımcı olabilirim?",
       "Nasılsınız?"
       // Diğer selamlama ifadeleri burada
     ];
 
+
+
     var newGreetings = [
       "Naber?",
-      "Hava nasıl?",
-      "Günaydın!",
       // Diğer yeni selamlama ifadeleri burada
     ];
 
     function generateRandomGreeting() {
       var allGreetings = greetings.concat(newGreetings);
       return allGreetings[Math.floor(Math.random() * allGreetings.length)];
+    }
+
+    function sayHello() {
+      var sayHello = sayHello.concat(sayHello);
+      return sayHello[Math.floor(Math.random() * sayHello.length)];
     }
 
     function generateRandomJoke() {
@@ -152,15 +158,36 @@
 
     function processUserInput(input) {
       switch(input) {
-        case 'merhaba':
-          return generateRandomGreeting();
+        case  "espiri":
+        return generateRandomJoke();
+        case  "mrb":
+        return generateRandomGreeting();
+        case  "merhaba":
+        return generateRandomGreeting();
         case 'naber':
-          return 'İyiyim, teşekkür ederim. Seninle nasıl yardımcı olabilirim?';
+        return 'İyiyim, teşekkür ederim. Seninle nasıl yardımcı olabilirim?';
+        case  "mrhba":
+        return generateRandomGreeting();
+        case  "meraba":
+        return generateRandomGreeting();
+        case  "menaba":
+        return generateRandomGreeting();
+        case  "merhba":
+        return generateRandomGreeting();
+        case  "marhaba":
+        return generateRandomGreeting();
+        case  "marhabe":
+        return generateRandomGreeting();
+        case  "hello":
+        return generateRandomGreeting();
+        case  "hi":
+        return generateRandomGreeting();
         // Yeni giriş ifadelerini buraya ekleyin
         default:
           return 'Üzgünüm, bu konuda yardımcı olamıyorum.';
       }
     }
+    
 
     function sendMessage() {
       var userInput = document.getElementById("user-input").value.trim().toLowerCase();
