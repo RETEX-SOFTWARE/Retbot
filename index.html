@@ -3,7 +3,6 @@
 <head>
   <title>Retbot - Yapay Zeka Chat</title>
   <style>
-    /* CSS stilleri */
     body {
       color: #fff;
       background-color: #111;
@@ -28,17 +27,17 @@
       max-height: 300px;
       overflow-y: scroll;
       background-color: #222;
-      border-radius: 30px; /* Kenarları yuvarlat */
+      border-radius: 30px;
     }
 
     #user-input {
       width: calc(100% - 20px);
       padding: 10px;
       font-size: 16px;
-      border: none; /* Kenarlığı kaldır */
+      border: none;
       background-color: #333;
       color: #fff;
-      border-radius: 10px; /* Kenarları yuvarlat */
+      border-radius: 10px;
       position: fixed;
       bottom: 55px;
       left: 0;
@@ -65,7 +64,7 @@
       padding: 10px 20px;
       font-size: 16px;
       cursor: pointer;
-      border-radius: 10px; /* Kenarları yuvarlat */
+      border-radius: 10px;
     }
   </style>
 </head>
@@ -84,6 +83,7 @@
       <button onclick="tellJoke()" id="joke-button">Fun</button>
     </div>
   </div>
+
   
   <script>
 
@@ -122,6 +122,9 @@
       "Bir bilgisayarın en sevdiği mevsim hangisi? Tabii ki, Yazılım!",
       "Bilgisayarlar denizde nasıl hayatta kalır? Veri 'flote' ederek!",
      ];
+
+    
+
     var greetings = [
       "Merhaba!",
       "Selam!",
@@ -130,12 +133,16 @@
       // Diğer selamlama ifadeleri burada
     ];
 
-
+let name = "name"
 
     var newGreetings = [
       "Naber?",
       // Diğer yeni selamlama ifadeleri burada
     ];
+
+    function open() {
+      frameElement
+    }
 
     function generateRandomGreeting() {
       var allGreetings = greetings.concat(newGreetings);
@@ -155,34 +162,38 @@
       var joke = generateRandomJoke();
       document.getElementById("chat-box").innerHTML += "<p>Retbot: " + joke + "</p>";
     }
-
+    
+    
     function processUserInput(input) {
       switch(input) {
+        case "slm":
+          return generateRandomGreeting();
+        case "selam":
+          return generateRandomGreeting();
         case  "espiri":
-        return generateRandomJoke();
+          return generateRandomJoke();
         case  "mrb":
-        return generateRandomGreeting();
+          return generateRandomGreeting();
         case  "merhaba":
-        return generateRandomGreeting();
+          return generateRandomGreeting();
         case 'naber':
-        return 'İyiyim, teşekkür ederim. Seninle nasıl yardımcı olabilirim?';
+          return 'İyiyim, teşekkür ederim. Sana nasıl yardımcı olabilirim?';
         case  "mrhba":
-        return generateRandomGreeting();
+          return generateRandomGreeting();
         case  "meraba":
-        return generateRandomGreeting();
+          return generateRandomGreeting();
         case  "menaba":
-        return generateRandomGreeting();
+          return generateRandomGreeting();
         case  "merhba":
-        return generateRandomGreeting();
+          return generateRandomGreeting();
         case  "marhaba":
-        return generateRandomGreeting();
+          return generateRandomGreeting();
         case  "marhabe":
-        return generateRandomGreeting();
+          return generateRandomGreeting();
         case  "hello":
-        return generateRandomGreeting();
+          return generateRandomGreeting();
         case  "hi":
-        return generateRandomGreeting();
-        // Yeni giriş ifadelerini buraya ekleyin
+          return generateRandomGreeting();
         default:
           return 'Üzgünüm, bu konuda yardımcı olamıyorum.';
       }
