@@ -77,15 +77,19 @@
     </div>
   
     <!-- Mesaj gönderme kısmı -->
-    <input type="text" id="user-input">
+    <input onkeypress="enter()" placeholder="Soru sorun..." type="text" id="user-input">
     <div id="bottom-buttons">
       <button onclick="sendMessage()" id="send-button">Soru Sor</button>
-      <button onclick="tellJoke()" id="joke-button">Fun</button>
     </div>
   </div>
 
   
   <script>
+    function enter() {
+    if(event.keyCode == 13) {
+        sendMessage();
+    }
+}
 
     var jokes = [
      "Bilgisayarım çok eski, onunla çalışmak eskiden Windows kullanmak gibi - her şey donuyor!",
@@ -167,6 +171,10 @@ let name = "name"
     
     function processUserInput(input) {
       switch(input) {
+        case "":
+          return alert("Lütfen bir metin giriniz."), generateRandomGreeting();
+        case "tamam":
+          return "Anlaşıldı.";
         case "slm":
           return generateRandomGreeting();
         case "selam":
