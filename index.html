@@ -4,6 +4,47 @@
 <head>
   <title>Retbot - Yapay Zeka Chat</title>
 </head>
+<style>
+body {
+  color: #fff;
+  background-color: #111;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#chat-box {
+  border: 0px solid #ccc;
+  padding: 10px;
+  margin-bottom: 20px;
+  min-height: 400px;
+  max-height: 300px;
+  overflow-y: scroll;
+  background-color: #222;
+  border-radius: 30px;
+}
+
+#user-input {
+  width: calc(100% - 20px);
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  background-color: #333;
+  color: #fff;
+  border-radius: 10px;
+  position: fixed;
+  bottom: 5px;
+  left: 0;
+
+</style>
 <body>
   <div class="chat-container">
     <h1>Retbot - Yapay Zeka Chat</h1>
@@ -11,15 +52,15 @@
     <div id="chat-box">
       <p id="retbot-greeting">Retbot: Merhaba, bir şey sormak isterseniz yazabilirsiniz.</p>
     </div>
-  
+
     <!-- Mesaj gönderme kısmı -->
     <input onkeypress="enter()" placeholder="Soru sorun..." type="text" id="user-input">
-    <div id="bottom-buttons">
-      <button onclick="sendMessage()" id="send-button">Soru Sor</button>
+
+      
     </div>
   </div>
 
-  
+
   <script>
     function enter() {
     if(event.keyCode == 13) {
@@ -63,7 +104,7 @@
       "Bilgisayarlar denizde nasıl hayatta kalır? Veri 'flote' ederek!",
      ];
 
-    
+
 
     var greetings = [
       "Merhaba!",
@@ -103,8 +144,8 @@ let name = "name"
       var joke = generateRandomJoke();
       document.getElementById("chat-box").innerHTML += "<p>Retbot: " + joke + "</p>";
     }
-    
-    
+
+
     function processUserInput(input) {
       switch(input) {
         case "":
@@ -143,7 +184,7 @@ let name = "name"
           return 'Üzgünüm, bu konuda yardımcı olamıyorum.';
       }
     }
-    
+
 
     function sendMessage() {
       var userInput = document.getElementById("user-input").value.trim().toLowerCase();
