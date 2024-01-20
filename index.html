@@ -1,50 +1,9 @@
 <!DOCTYPE html>
 <html>
-    <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">
 <head>
   <title>Retbot - Yapay Zeka Chat</title>
 </head>
-<style>
-body {
-  color: #fff;
-  background-color: #111;
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-h1 {
-  text-align: center;
-  margin-top: 20px;
-}
-
-#chat-box {
-  border: 0px solid #ccc;
-  padding: 10px;
-  margin-bottom: 20px;
-  min-height: 400px;
-  max-height: 300px;
-  overflow-y: scroll;
-  background-color: #222;
-  border-radius: 30px;
-}
-
-#user-input {
-  width: calc(100% - 20px);
-  padding: 10px;
-  font-size: 16px;
-  border: none;
-  background-color: #333;
-  color: #fff;
-  border-radius: 10px;
-  position: fixed;
-  bottom: 5px;
-  left: 0;
-
-</style>
 <body>
   <div class="chat-container">
     <h1>Retbot - Yapay Zeka Chat</h1>
@@ -52,15 +11,15 @@ h1 {
     <div id="chat-box">
       <p id="retbot-greeting">Retbot: Merhaba, bir şey sormak isterseniz yazabilirsiniz.</p>
     </div>
-
+  
     <!-- Mesaj gönderme kısmı -->
     <input onkeypress="enter()" placeholder="Soru sorun..." type="text" id="user-input">
-
-      
+    <div id="bottom-buttons">
+      <button onclick="sendMessage()" id="send-button">Soru Sor</button>
     </div>
   </div>
 
-
+  
   <script>
     function enter() {
     if(event.keyCode == 13) {
@@ -104,7 +63,7 @@ h1 {
       "Bilgisayarlar denizde nasıl hayatta kalır? Veri 'flote' ederek!",
      ];
 
-
+    
 
     var greetings = [
       "Merhaba!",
@@ -144,47 +103,78 @@ let name = "name"
       var joke = generateRandomJoke();
       document.getElementById("chat-box").innerHTML += "<p>Retbot: " + joke + "</p>";
     }
-
-
+    
+    
     function processUserInput(input) {
       switch(input) {
-        case "":
-          return alert("Lütfen bir metin giriniz."), generateRandomGreeting();
-        case "tamam":
-          return "Anlaşıldı.";
-        case "slm":
-          return generateRandomGreeting();
-        case "selam":
-          return generateRandomGreeting();
-        case  "espiri":
-          return generateRandomJoke();
-        case  "mrb":
-          return generateRandomGreeting();
-        case  "merhaba":
-          return generateRandomGreeting();
-        case 'naber':
-          return 'İyiyim, teşekkür ederim. Sana nasıl yardımcı olabilirim?';
-        case  "mrhba":
-          return generateRandomGreeting();
-        case  "meraba":
-          return generateRandomGreeting();
-        case  "menaba":
-          return generateRandomGreeting();
-        case  "merhba":
-          return generateRandomGreeting();
-        case  "marhaba":
-          return generateRandomGreeting();
-        case  "marhabe":
-          return generateRandomGreeting();
-        case  "hello":
-          return generateRandomGreeting();
-        case  "hi":
-          return generateRandomGreeting();
+          case "":
+            return alert("Lütfen bir metin giriniz."), generateRandomGreeting();
+          case "nasılsın":
+            return "İyiyim, sen nasılsın?"
+          case "tamam":
+            return "Anlaşıldı.";
+          case "slm":
+            return generateRandomGreeting();
+          case "selam":
+            return generateRandomGreeting();
+          case  "espiri":
+            return generateRandomJoke();
+          case  "mrb":
+            return generateRandomGreeting();
+          case  "merhaba":
+            return generateRandomGreeting();
+          case 'naber':
+            return 'İyiyim, teşekkür ederim. Sana nasıl yardımcı olabilirim?';
+          case  "mrhba":
+            return generateRandomGreeting();
+          case  "meraba":
+            return generateRandomGreeting();
+          case  "menaba":
+            return generateRandomGreeting();
+          case  "merhba":
+            return generateRandomGreeting();
+          case  "marhaba":
+            return generateRandomGreeting();
+          case  "marhabe":
+            return generateRandomGreeting();
+          case  "hello":
+            return generateRandomGreeting();
+          case  "hi":
+            return generateRandomGreeting();
         default:
-          return 'Üzgünüm, bu konuda yardımcı olamıyorum.';
+            return 'Üzgünüm, bu konuda yardımcı olamıyorum.';
+          case "iyiyim":
+            return "İyi olmana sevindim!";
+          case "bilmem":
+            return "İstersen espiri yapabilirim, espiri yap veya espiri demen yeterli!";
+          case "espiri yap":
+            return generateRandomJoke();
+          case "napim":
+            return "Ne yaparsan yap.";
+          case "bende":
+            return "Anladım.";
+          case "yardımcı ol":
+            return "Tabii, nasıl yardımcı olabilim";
+          case "yardımcı olamazsın":
+            return "Bunu duyduğuma üzüldüm.";
+          case "seni kim yaptı":
+            return "RETEX şirketi; https://retex3050.wixsite.com/retex";
+          case "anladım":
+            return "Anladığına sevindim!";
+          case "baybay":
+            return "Baybay! Sonra görüşürüz!";
+          case "görüşürüz":
+            "Sanada görüşürüz, ihtiyacın olursa hep buradayım!";
+          case "defol":
+            return "...";
+          case "neden":
+            return "Kaplumbağa deden ;)";
+          case "wayfix":
+            return window.open("https://retex3050.wixsite.com/wayfix")();
+        
       }
     }
-
+    
 
     function sendMessage() {
       var userInput = document.getElementById("user-input").value.trim().toLowerCase();
