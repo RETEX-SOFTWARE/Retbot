@@ -7,6 +7,7 @@
 <body>
   <div class="chat-container">
     <h1>Retbot - Yapay Zeka Chat</h1>
+<link rel="stylesheet" href="scanner.html">
 
     <div id="chat-box">
       <p id="retbot-greeting">Retbot: Merhaba, bir şey sormak isterseniz yazabilirsiniz.</p>
@@ -14,12 +15,11 @@
   
     <!-- Mesaj gönderme kısmı -->
     <input onkeypress="enter()" placeholder="Soru sorun..." type="text" id="user-input">
-    <div id="bottom-buttons">
-      <button onclick="sendMessage()" id="send-button">Soru Sor</button>
-    </div>
   </div>
 
-  
+  <script>
+    let userName= prompt('Adınız ne olsun? Retbot size bu isimle hitab edecektir.');
+  </script>
   <script>
     function enter() {
     if(event.keyCode == 13) {
@@ -66,11 +66,11 @@
     
 
     var greetings = [
-      "Merhaba!",
-      "Selam!",
-      "Merhaba! Sana nasıl yardımcı olabilirim?",
-      "Nasılsınız?",
-      "Selam, nasıl yardımcı olabilirim?", 
+      `Merhaba ${userName}!`,
+      `Selam ${userName}!`,
+      `Merhaba! Sana nasıl yardımcı olabilirim ${userName}?`,
+      `Nasılsınız ${userName}?`,
+      `Selam, nasıl yardımcı olabilirim ${userName}?`,
       // Diğer selamlama ifadeleri burada
     ];
 
@@ -110,7 +110,7 @@ let name = "name"
           case "":
             return alert("Lütfen bir metin giriniz."), generateRandomGreeting();
           case "nasılsın":
-            return "İyiyim, sen nasılsın?"
+            return `İyiyim, sen nasılsın ${userName}?`
           case "tamam":
             return "Anlaşıldı.";
           case "slm":
@@ -124,7 +124,7 @@ let name = "name"
           case  "merhaba":
             return generateRandomGreeting();
           case 'naber':
-            return 'İyiyim, teşekkür ederim. Sana nasıl yardımcı olabilirim?';
+            return `İyiyim, teşekkür ederim. Sana nasıl yardımcı olabilirim ${userName}?`;
           case  "mrhba":
             return generateRandomGreeting();
           case  "meraba":
@@ -144,13 +144,13 @@ let name = "name"
         default:
             return 'Üzgünüm, bu konuda yardımcı olamıyorum.';
           case "iyiyim":
-            return "İyi olmana sevindim!";
+            return `İyi olmana sevindim ${userName}!`;
           case "bilmem":
             return "İstersen espiri yapabilirim, espiri yap veya espiri demen yeterli!";
           case "espiri yap":
             return generateRandomJoke();
           case "napim":
-            return "Ne yaparsan yap.";
+            return `Ne yaparsan yap ${userName}.`;
           case "bende":
             return "Anladım.";
           case "yardımcı ol":
@@ -158,11 +158,11 @@ let name = "name"
           case "yardımcı olamazsın":
             return "Bunu duyduğuma üzüldüm.";
           case "seni kim yaptı":
-            return "RETEX şirketi; https://retex3050.wixsite.com/retex";
+            return "RETEX şirketi; https://retexsoftware.wixsite.com/retex";
           case "anladım":
             return "Anladığına sevindim!";
           case "baybay":
-            return "Baybay! Sonra görüşürüz!";
+            return `Baybay! Sonra görüşürüz ${userName}!`;
           case "görüşürüz":
             "Sanada görüşürüz, ihtiyacın olursa hep buradayım!";
           case "defol":
@@ -170,8 +170,9 @@ let name = "name"
           case "neden":
             return "Kaplumbağa deden ;)";
           case "wayfix":
-            return window.open("https://retex3050.wixsite.com/wayfix")();
-        
+            return "Wayfix'in linki: https://retexsoftware.wixsite.com/wayfix";
+          case "ne yapalım":
+            return "Ne yapsak?";
       }
     }
     
@@ -179,10 +180,8 @@ let name = "name"
     function sendMessage() {
       var userInput = document.getElementById("user-input").value.trim().toLowerCase();
       var botResponse = processUserInput(userInput);
-
       document.getElementById("chat-box").innerHTML += "<p>Siz: " + userInput + "</p>";
       document.getElementById("user-input").value = "";
-
       document.getElementById("chat-box").innerHTML += "<p>Retbot: " + botResponse + "</p>";
     }
   </script>
