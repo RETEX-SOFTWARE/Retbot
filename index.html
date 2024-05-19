@@ -5,10 +5,73 @@
   <title>Retbot - Yapay Zeka Chat</title>
 </head>
 <body>
+  <div id="myProgress">
+    <div id="myBar"></div>
+  </div>
+  <script>
+    var i = 0;
+function move() {
+  if (i == 0) {
+    i = 1;
+    var elem = document.getElementById("myBar");
+    var width = 1;
+    var id = setInterval(frame, 10);
+    function frame() {
+      if (width >= 100) {
+        clearInterval(id);
+        i = 0;
+        var x = document.getElementById("myBar");
+        x.style.display = "none";
+      } else {
+        width++;
+        elem.style.width = width + "%";
+      }
+    }
+  }
+}
+  </script>
   <div class="chat-container">
     <h1>Retbot - Yapay Zeka Chat</h1>
-<link rel="stylesheet" href="scanner.html">
+<button id="myBtn">Settings</button>
 
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <script>
+      // Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+  modal.style.opacity = 0
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+    </script>
+    <span class="close">&times;</span>
+    <p>Some text in the Modal..</p>
+  </div>
+
+</div>
     <div id="chat-box">
       <p id="retbot-greeting">Retbot: Merhaba, bir şey sormak isterseniz yazabilirsiniz.</p>
     </div>
@@ -173,6 +236,8 @@ let name = "name"
             return "Wayfix'in linki: https://retexsoftware.wixsite.com/wayfix";
           case "ne yapalım":
             return "Ne yapsak?";
+          case "rastgele sayı":
+            return alert(`${random.Math}`);
       }
     }
     
@@ -184,6 +249,9 @@ let name = "name"
       document.getElementById("user-input").value = "";
       document.getElementById("chat-box").innerHTML += "<p>Retbot: " + botResponse + "</p>";
     }
+  </script>
+  <script>
+    move();
   </script>
 </body>
 </html>
