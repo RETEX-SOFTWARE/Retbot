@@ -1,210 +1,183 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <link rel="stylesheet" href="style.css">
-  <title>Retbot - Yapay Zeka Chat</title>
+    <link rel="stylesheet" href="style.css">
+    <title>Retbot - Yapay Zeka Chat</title>
 </head>
+
 <body>
-  <div class="chat-container">
-    <h1>Retbot - Yapay Zeka Chat</h1>
-    <button id="myBtn">Settings</button>
-
-<!-- The Modal -->
-<div id="myModal" class="modal">
-  <!-- Modal content -->
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <h2>Ayarlar</h2>
-    <div id="theme-options">
-      <label for="theme">Tema Seç:</label>
-      <select id="theme">
-        <option value="dark">Koyu Tema</option>
-        <option value="light">Açık Tema</option>
-      </select>
+    <div class="chat-container">
+        <h1>Retbot - Yapay Zeka Chat</h1>
+        <button id="myBtn">Settings</button>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Ayarlar</h2>
+                <div id="theme-options">
+                    <label for="theme">Tema Seç:</label>
+                    <select id="theme">
+                        <option value="dark">Koyu Tema</option>
+                        <option value="light">Açık Tema</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div id="chat-box">
+            <p class="bot-message chat-message" id="retbot-greeting">Retbot: Merhaba, bir şey sormak isterseniz
+                yazabilirsiniz.</p>
+        </div>
+        <!-- Mesaj gönderme kısmı -->
+        <div id="bottom-buttons">
+            <input onkeypress="enter(event)" placeholder="Soru sorun..." type="text" id="user-input">
+        </div>
     </div>
-  </div>
-</div>
 
+    <script>
+        let userName = prompt('Adınız ne olsun? Retbot size bu isimle hitap edecektir.') || 'Kullanıcı';
 
-    <div id="chat-box">
-      <p class="bot-message chat-message" id="retbot-greeting">Retbot: Merhaba, bir şey sormak isterseniz yazabilirsiniz.</p>
-    </div>
+        const greetings = [
+            "Selam!", "Merhaba! Nasıl yardımcı olabilirim?", "Merhaba!", "Selam! Nasıl yardımcı olabilirim?", "Merhaba, bugün ne yapacağız?"
+        ];
 
-    <!-- Mesaj gönderme kısmı -->
-    <div id="bottom-buttons">
-      <input onkeypress="enter(event)" placeholder="Soru sorun..." type="text" id="user-input">
-    </div>
-  </div>
+        const responses = {
+            "": "Lütfen bir metin giriniz.",
+            "merhaba": "generateRandomGreeting()",
+            "selam": "generateRandomGreeting()",
+            "hello": "generateRandomGreeting()",
+            "hi": "generateRandomGreeting()",
+            "mrb": "generateRandomGreeting()",
+            "slm": "generateRandomGreeting()",
+            "merhba": "generateRandomGreeting()",
+            "hllo": "generateRandomGreeting()",
+            "merhba": "generateRandomGreeting()",
+            "selzm": "generateRandomGreeting()",
+            "slam": "generateRandomGreeting()",
+            "halo": "generateRandomGreeting()",
+            "merba": "generateRandomGreeting()",
+            "merhaba!": "generateRandomGreeting()",
+            "selam!": "generateRandomGreeting()",
+            "merhab": "generateRandomGreeting()",
+            "hii": "generateRandomGreeting()",
+            "hello!": "generateRandomGreeting()",
+            "nasılsın": `İyiyim, sen nasılsın ${userName}?`,
+            "tamam": "Anlaşıldı.",
+            "espiri": "generateRandomJoke()",
+            "naber": `İyiyim, teşekkür ederim. Sana nasıl yardımcı olabilirim ${userName}?`,
+            "iyiyim": `İyi olmana sevindim ${userName}!`,
+            "bilmem": "İstersen espiri yapabilirim, 'espiri yap' veya 'espiri' demen yeterli!",
+            "espiri yap": "generateRandomJoke()",
+            "napim": `Ne yaparsan yap ${userName}.`,
+            "bende": "Anladım.",
+            "yardımcı ol": "Tabii, nasıl yardımcı olabilirim?",
+            "yardımcı olamazsın": "Bunu duyduğuma üzüldüm.",
+            "seni kim yaptı": "RETEX şirketi; https://retexsoftware.wixsite.com/retex",
+            "anladım": "Anladığına sevindim!",
+            "baybay": `Baybay! Sonra görüşürüz ${userName}!`,
+            "görüşürüz": "Sana da görüşürüz, ihtiyacın olursa hep buradayım!",
+            "defol": "...",
+            "neden": "Maalesef buna şimdilik cevap veremiyorum, daha yapım aşamasındayım...",
+            "wayfix": "Wayfix'in linki: https://retexsoftware.wixsite.com/wayfix",
+            "ne yapalım": "Ne yapsak?",
+            "rastgele sayı": `Rastgele sayı: ${Math.floor(Math.random() * 100)}`,
+            "kendini kapat": "Bunu yapmaya yetkim yok, ama benimle internet üzerinden konuşuyorsan sekmeyi kapatabilirsin. Eğer mobildeysen ve Android kullanıyorsan alttaki gezinme çubuğunu kullan.",
+            "kapan": "Bunu yapmaya yetkim yok, ama benimle internet üzerinden konuşuyorsan sekmeyi kapatabilirsin. Eğer mobildeysen ve Android kullanıyorsan alttaki gezinme çubuğunu kullan.",
+            "resim çiz": "Maalesef, daha bu özellik eklenmedi. Ama Dall-E gibi yapay zeka vektör araçlarını kullanabilirsin.",
+            "kaç yaşındasın": "2023 yapımıyım.",
+            "kaynak kodunu verir misin": "Açık kaynak kodluyum, Github>Retex>Software>Retbot>",
+            "log": alert(console.log),
 
-  <script>
-    let userName = prompt('Adınız ne olsun? Retbot size bu isimle hitap edecektir.') || 'Kullanıcı';
+            "default": function (input) {
+                return `Bu konuda (${input}) şuradan bilgi alabilirsin: <a href="https://wikipedia.org/wiki/${encodeURIComponent(input)}" target="_blank">${input}</a> bu işine yaramadıysa <a href="https://google.com/search?q=${encodeURIComponent(input)}" target="_blank">buna da bakabilirsiniz.</a>`;
+            }
+        };
+        const jokes = [
+            "Bilgisayarlar asla unutkan değildir, sadece bellekleri dolu olabilir.",
+            "Bir bilgisayar neden hiçbir zaman hasta olmaz? Çünkü onlarda virüs programı var!",
+            "Bir bilgisayarın favori filmi nedir? Diskler Bize Ne Anlatıyor?",
+            "Bir RESToranın menüsüne baktım, tüm yemekler 'GET'le mi servis ediliyor?",
+            "RESToranın en popüler yemeği nedir? Tabii ki, 'DELETE-miş et'! Bunu benim yapımcılarımda anlayamadı.(bu notuda yapımcılar yazdı.)",
+            "Bir restoranda yazılım mühendisi olmak güzel olabilir; menüde her zaman 'yemek.get()' çağrıları yapıyorlar!",
+            "Restoranın şefi, yemeklerin hazırlanması sırasında hiç 'timeout' hatası alıyor mu, yoksa her şey hızlı mı gerçekleşiyor?",
+            "Restoranın özel gün menüsünde SQL enjeksiyonu yapılmadığından emin olmak için 'prepared statements' kullanılıyor mu?",
+            "Neden JavaScript geliştiricileri sinirlidir? Çünkü her şey undefined!",
+            "Neden veri bilimcileri insanlarla anlaşmakta zorlanır? Çünkü herkesle ilişkilerini normalize etmek istiyorlar.",
+            "Bilgisayar mühendisliği ile ilgili bir espri duymak istiyor musun? Ah, o benim alanım değil, 'null'.",
+            "Bilgisayarlar asla spor yapmaz çünkü RAM'leri yeterince iyi çalışır!",
+            "Bir bilgisayarın ens edivği film hangisi? 1'den 0'a Hızlı ve Öfkeli!",
+            "Bir bilgisayarın en sevdiği mevsim hangisi? Tabii ki, Yazılım!",
+            "Bilgisayarlar denizde nasıl hayatta kalır? Veri 'flote' ederek!",
+        ];
 
-    function enter(event) {
-      if (event.keyCode == 13) {
-        sendMessage();
-      }
-    }
+        function enter(event) {
+            if (event.keyCode == 13) {
+                sendMessage();
+            }
+        }
 
-    function changeTheme() {
-  var selectedTheme = document.getElementById("theme").value;
-  var body = document.body;
-  if (selectedTheme === "dark") {
-    body.classList.add("dark-theme");
-    body.classList.remove("light-theme"); // Açık temayı kaldır
-  } else {
-    body.classList.remove("dark-theme");
-    body.classList.add("light-theme"); // Açık temayı ekle
-  }
-}
+        function changeTheme() {
+            var selectedTheme = document.getElementById("theme").value;
+            var body = document.body;
+            if (selectedTheme === "dark") {
+                body.classList.add("dark-theme");
+                body.classList.remove("light-theme");
+            } else {
+                body.classList.remove("dark-theme");
+                body.classList.add("light-theme");
+            }
+        }
 
-// Tema seçeneği değiştiğinde tetiklenecek olay dinleyicisi ekleme
-document.getElementById("theme").addEventListener("change", changeTheme);
+        document.getElementById("theme").addEventListener("change", changeTheme);
 
+        function generateRandomGreeting() {
+            return greetings[Math.floor(Math.random() * greetings.length)];
+        }
 
-    var jokes = [
-      "Bilgisayarım çok eski, onunla çalışmak eskiden Windows kullanmak gibi - her şey donuyor! (pencereden soğuk hava geldiği için ;)",
-      "Bilgisayarlar asla unutkan değildir, sadece bellekleri dolu olabilir.",
-      "Bir bilgisayar neden hiçbir zaman hasta olmaz? Çünkü onlarda virüs programı var!",
-      "Bir bilgisayarın favori filmi nedir? Diskler Bize Ne Anlatıyor?",
-      "Bir RESToranın menüsüne baktım, tüm yemekler 'GET'le mi servis ediliyor?",
-      "RESToranın en popüler yemeği nedir? Tabii ki, 'DELETE-miş et'! Bunu benim yapımcılarımda anlayamadı.(bu notuda yapımcılar yazdı.)",
-      "Bir restoranda yazılım mühendisi olmak güzel olabilir; menüde her zaman 'yemek.get()' çağrıları yapıyorlar!",
-      "Restoranın şefi, yemeklerin hazırlanması sırasında hiç 'timeout' hatası alıyor mu, yoksa her şey hızlı mı gerçekleşiyor?",
-      "Restoranın özel gün menüsünde SQL enjeksiyonu yapılmadığından emin olmak için 'prepared statements' kullanılıyor mu?",
-      "Neden JavaScript geliştiricileri sinirlidir? Çünkü her şey undefined!",
-      "Neden veri bilimcileri insanlarla anlaşmakta zorlanır? Çünkü herkesle ilişkilerini normalize etmek istiyorlar.",
-      "Bilgisayar mühendisliği ile ilgili bir espri duymak istiyor musun? Ah, o benim alanım değil, 'null'.",
-      "Bilgisayarlar asla spor yapmaz çünkü RAM'leri yeterince iyi çalışır!",
-      "Bir bilgisayarın en sevdiği film hangisi? 1'den 0'a Hızlı ve Öfkeli!",
-      "Bir bilgisayarın en sevdiği mevsim hangisi? Tabii ki, Yazılım!",
-      "Bilgisayarlar denizde nasıl hayatta kalır? Veri 'flote' ederek!",
-    ];
+        function generateRandomJoke() {
+            return jokes[Math.floor(Math.random() * jokes.length)];
+        }
 
-    var greetings = [
-      `Merhaba ${userName}!`,
-      `Selam ${userName}!`,
-      `Merhaba! Sana nasıl yardımcı olabilirim ${userName}?`,
-      `Nasılsınız ${userName}?`,
-      `Selam, nasıl yardımcı olabilirim ${userName}?`,
-    ];
+        function processUserInput(input) {
+            input = input.toLowerCase();
+            if (responses[input]) {
+                if (responses[input] === "generateRandomJoke()") {
+                    return generateRandomJoke();
+                }
+                if (responses[input] === "generateRandomGreeting()") {
+                    return generateRandomGreeting();
+                }
+                return responses[input];
+            } else {
+                return responses.default(input);
+            }
+        }
 
-    var newGreetings = [
-      "Naber?",
-      // Diğer yeni selamlama ifadeleri burada
-    ];
+        function sendMessage() {
+            var userInput = document.getElementById("user-input").value.trim().toLowerCase();
+            var botResponse = processUserInput(userInput);
+            var chatBox = document.getElementById("chat-box");
+            chatBox.innerHTML += `<p class="user-message chat-message">Siz: ${userInput}</p>`;
+            document.getElementById("user-input").value = "";
+            chatBox.innerHTML += `<p class="bot-message chat-message">Retbot: ${botResponse}</p>`;
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
 
-    function generateRandomGreeting() {
-      var allGreetings = greetings.concat(newGreetings);
-      return allGreetings[Math.floor(Math.random() * allGreetings.length)];
-    }
-
-    function generateRandomJoke() {
-      return jokes[Math.floor(Math.random() * jokes.length)];
-    }
-
-    function processUserInput(input) {
-      switch(input) {
-        case "":
-          return alert("Lütfen bir metin giriniz."), generateRandomGreeting();
-        case "nasılsın":
-          return `İyiyim, sen nasılsın ${userName}?`;
-        case "tamam":
-          return "Anlaşıldı.";
-        case "slm":
-          return generateRandomGreeting();
-        case "selam":
-          return generateRandomGreeting();
-        case "espiri":
-          return generateRandomJoke();
-        case "mrb":
-          return generateRandomGreeting();
-        case "merhaba":
-          return generateRandomGreeting();
-        case "naber":
-          return `İyiyim, teşekkür ederim. Sana nasıl yardımcı olabilirim ${userName}?`;
-        case "mrhba":
-          return generateRandomGreeting();
-        case "meraba":
-          return generateRandomGreeting();
-        case "menaba":
-          return generateRandomGreeting();
-        case "merhba":
-          return generateRandomGreeting();
-        case "marhaba":
-          return generateRandomGreeting();
-        case "marhabe":
-          return generateRandomGreeting();
-        case "hello":
-          return generateRandomGreeting();
-        case "hi":
-          return generateRandomGreeting();
-        case "iyiyim":
-          return `İyi olmana sevindim ${userName}!`;
-        case "bilmem":
-          return "İstersen espiri yapabilirim, 'espiri yap' veya 'espiri' demen yeterli!";
-        case "espiri yap":
-          return generateRandomJoke();
-        case "napim":
-          return `Ne yaparsan yap ${userName}.`;
-        case "bende":
-          return "Anladım.";
-        case "yardımcı ol":
-          return "Tabii, nasıl yardımcı olabilirim?";
-        case "yardımcı olamazsın":
-          return "Bunu duyduğuma üzüldüm.";
-        case "seni kim yaptı":
-          return "RETEX şirketi; https://retexsoftware.wixsite.com/retex";
-        case "anladım":
-          return "Anladığına sevindim!";
-        case "baybay":
-          return `Baybay! Sonra görüşürüz ${userName}!`;
-        case "görüşürüz":
-          return "Sana da görüşürüz, ihtiyacın olursa hep buradayım!";
-        case "defol":
-          return "...";
-        case "neden":
-          return "Kaplumbağa deden ;)";
-        case "wayfix":
-          return "Wayfix'in linki: https://retexsoftware.wixsite.com/wayfix";
-        case "ne yapalım":
-          return "Ne yapsak?";
-        case "rastgele sayı":
-          return `Rastgele sayı: ${Math.floor(Math.random() * 100)}`;
-        default:
-          return `Bu konuda (${(input)}) şuradan bilgi alabilirsin: <a href="https://wikipedia.org/wiki/${encodeURIComponent(input)}" target="_blank">${(input)}</a> bu işine yaramadıysa <a href="https://google.com/search?q=${encodeURIComponent(input)}" target="_blank">buna da bakabilirsiniz.</a>`;
-      }
-    }
-
-    function sendMessage() {
-      var userInput = document.getElementById("user-input").value.trim().toLowerCase();
-      var botResponse = processUserInput(userInput);
-      var chatBox = document.getElementById("chat-box");
-      chatBox.innerHTML += `<p class="user-message chat-message">Siz: ${userInput}</p>`;
-      document.getElementById("user-input").value = "";
-      chatBox.innerHTML += `<p class="bot-message chat-message">Retbot: ${botResponse}</p>`;
-      chatBox.scrollTop = chatBox.scrollHeight;
-    }
-
-    // Modal script
-    var modal = document.getElementById("myModal");
-    var btn = document.getElementById("myBtn");
-    var span = document.getElementsByClassName("close")[0];
-
-    btn.onclick = function() {
-      modal.style.display = "block";
-    }
-
-    span.onclick = function() {
-      modal.style.display = "none";
-    }
-
-    window.onclick = function(event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
-    }
-
-    move();
-  </script>
+        // Modal script
+        var modal = document.getElementById("myModal");
+        var btn = document.getElementById("myBtn");
+        var span = document.getElementsByClassName("close")[0];
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 </body>
+
 </html>
